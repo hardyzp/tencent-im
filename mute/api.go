@@ -8,8 +8,8 @@
 package mute
 
 import (
-	"github.com/dobyte/tencent-im/internal/core"
-	"github.com/dobyte/tencent-im/internal/types"
+	"github.com/hardyzp/tencent-im/internal/core"
+	"github.com/hardyzp/tencent-im/internal/types"
 )
 
 const (

@@ -14,9 +14,9 @@ import (
 
 	"github.com/dobyte/http"
 
-	"github.com/dobyte/tencent-im/internal/enum"
-	"github.com/dobyte/tencent-im/internal/sign"
-	"github.com/dobyte/tencent-im/internal/types"
+	"github.com/hardyzp/tencent-im/internal/enum"
+	"github.com/hardyzp/tencent-im/internal/sign"
+	"github.com/hardyzp/tencent-im/internal/types"
 )
 
 const (
