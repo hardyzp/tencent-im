@@ -339,11 +339,11 @@ func (g *Group) checkUpdateError() (err error) {
 // 检测群名称参数错误
 func (g *Group) checkNameArgError() error {
 	if g.name == "" {
-		return errNotSetGroupName
+		return ErrNotSetGroupName
 	}
 
 	if len(g.name) > 30 {
-		return errGroupNameTooLong
+		return ErrGroupNameTooLong
 	}
 
 	return nil
@@ -352,13 +352,13 @@ func (g *Group) checkNameArgError() error {
 // 检测群类型参数错误
 func (g *Group) checkTypeArgError() error {
 	if g.groupType == "" {
-		return errNotSetGroupType
+		return ErrNotSetGroupType
 	}
 
 	switch Type(g.groupType) {
 	case TypePublic, TypePrivate, TypeChatRoom, TypeLiveRoom:
 	default:
-		return errInvalidGroupType
+		return ErrInvalidGroupType
 	}
 
 	return nil
@@ -367,7 +367,7 @@ func (g *Group) checkTypeArgError() error {
 // 检测群简介参数错误
 func (g *Group) checkIntroductionArgError() error {
 	if len(g.introduction) > 400 {
-		return errGroupIntroductionTooLong
+		return ErrGroupIntroductionTooLong
 	}
 
 	return nil
@@ -376,7 +376,7 @@ func (g *Group) checkIntroductionArgError() error {
 // 检测群公告参数错误
 func (g *Group) checkNotificationArgError() error {
 	if len(g.notification) > 400 {
-		return errGroupNotificationTooLong
+		return ErrGroupNotificationTooLong
 	}
 
 	return nil
