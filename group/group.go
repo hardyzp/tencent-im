@@ -15,12 +15,12 @@ import (
 )
 
 var (
-	errNotSetGroupType          = core.NewError(enum.InvalidParamsCode, "group type is not set")
-	errNotSetGroupName          = core.NewError(enum.InvalidParamsCode, "group name is not set")
-	errGroupNameTooLong         = core.NewError(enum.InvalidParamsCode, "group name is too long")
-	errInvalidGroupType         = core.NewError(enum.InvalidParamsCode, "invalid group type")
-	errGroupIntroductionTooLong = core.NewError(enum.InvalidParamsCode, "group introduction is too long")
-	errGroupNotificationTooLong = core.NewError(enum.InvalidParamsCode, "group notification is too long")
+	ErrNotSetGroupType          = core.NewError(enum.NotSetGroupType, "group type is not set")
+	ErrNotSetGroupName          = core.NewError(enum.NotSetGroupName, "group name is not set")
+	ErrGroupNameTooLong         = core.NewError(enum.GroupNameTooLong, "group name is too long")
+	ErrInvalidGroupType         = core.NewError(enum.InvalidGroupType, "invalid group type")
+	ErrGroupIntroductionTooLong = core.NewError(enum.GroupIntroductionTooLong, "group introduction is too long")
+	ErrGroupNotificationTooLong = core.NewError(enum.GroupNotificationTooLong "group notification is too long")
 )
 
 type (
