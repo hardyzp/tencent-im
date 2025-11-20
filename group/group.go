@@ -20,7 +20,7 @@ var (
 	ErrGroupNameTooLong         = core.NewError(enum.GroupNameTooLong, "group name is too long")
 	ErrInvalidGroupType         = core.NewError(enum.InvalidGroupType, "invalid group type")
 	ErrGroupIntroductionTooLong = core.NewError(enum.GroupIntroductionTooLong, "group introduction is too long")
-	ErrGroupNotificationTooLong = core.NewError(enum.GroupNotificationTooLong "group notification is too long")
+	ErrGroupNotificationTooLong = core.NewError(enum.GroupNotificationTooLong, "group notification is too long")
 )
 
 type (
