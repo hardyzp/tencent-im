@@ -264,7 +264,7 @@ type API interface {
 	// 有消息MsgSeq 和群id OperateType 操作类型
 	// 点击查看详细文档:
 	// https://www.tencentcloud.com/zh/document/product/1047/47948
-	GroupSetKeyValues(groupId string, MsgSeq int, OperateType int, extensionData []extensionKV) (err error)
+	GroupSetKeyValues(groupId string, MsgSeq int, OperateType int, extensionData []ExtensionKV) (err error)
 }
 
 type api struct {
@@ -1343,7 +1343,7 @@ func (a *api) ModifyGroupMsg(groupId string, MsgSeq int, CloudCustomData string)
 // 有消息MsgSeq 和群id OperateType 操作类型
 // 点击查看详细文档:
 // https://www.tencentcloud.com/zh/document/product/1047/47948
-func (a *api) GroupSetKeyValues(groupId string, MsgSeq int, OperateType int, extensionData []extensionKV) (err error) {
+func (a *api) GroupSetKeyValues(groupId string, MsgSeq int, OperateType int, extensionData []ExtensionKV) (err error) {
 	req := &groupSetKeyValuesReq{GroupId: groupId, MsgSeq: MsgSeq, OperateType: OperateType, ExtensionList: extensionData}
 	resp := &groupSetKeyValuesResp{}
 	if err = a.client.Post(serviceGroup, commandGroupSetKeyValues, req, resp); err != nil {

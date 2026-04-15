@@ -525,7 +525,7 @@ type (
 		GroupId       string        `json:"GroupId"`
 		MsgSeq        int           `json:"MsgSeq"`      // （必填）操作的群ID
 		OperateType   int           `json:"OperateType"` //1设置群扩展 2删除消息扩展 3清空消息扩展
-		ExtensionList []extensionKV `json:"ExtensionList,omitempty"`
+		ExtensionList []ExtensionKV `json:"ExtensionList,omitempty"`
 	}
 	groupSetKeyValuesResp struct {
 		types.ActionBaseResp
@@ -533,9 +533,9 @@ type (
 	}
 	extension struct {
 		ErrorCode int         `json:"ErrorCode"`
-		Extension extensionKV `json:"Extension"`
+		Extension ExtensionKV `json:"Extension"`
 	}
-	extensionKV struct {
+	ExtensionKV struct {
 		Key   string `json:"Key"`
 		Value string `json:"Value"`
 		Seq   int    `json:"Seq"`
