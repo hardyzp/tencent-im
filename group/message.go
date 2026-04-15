@@ -22,6 +22,8 @@ type (
 	// MsgOnlineOnlyFlag 只发送在线成员标识
 	MsgOnlineOnlyFlag int
 
+	SupportMessageExtensionFlag int
+
 	// MsgPriority 消息优先级
 	MsgPriority string
 
@@ -32,6 +34,9 @@ type (
 const (
 	MsgOnlineOnlyFlagNo  MsgOnlineOnlyFlag = 0 // 发送所有成员
 	MsgOnlineOnlyFlagYes MsgOnlineOnlyFlag = 1 // 仅发送在线成员
+
+	SupportMessageExtensionNo  SupportMessageExtensionFlag = 0 // 发送所有成员
+	SupportMessageExtensionYes SupportMessageExtensionFlag = 1 // 仅发送在线成员
 
 	MsgPriorityHigh   MsgPriority = "High"   // 高优先级消息
 	MsgPriorityNormal MsgPriority = "Normal" // 普通优先级消息
@@ -47,16 +52,17 @@ const (
 
 type Message struct {
 	entity.Message
-	priority         MsgPriority       // 消息的优先级
-	onlineOnlyFlag   MsgOnlineOnlyFlag // 仅发送在线成员标识
-	sendTime         int64             // 消息发送时间
-	timestamp        int64             // 消息时间戳，UNIX 时间戳（单位：秒）
-	seq              int               // 消息序列号
-	status           MsgStatus         // 消息状态
-	customData       interface{}       // 自定义数据
-	sendControls     map[string]bool   // 发送消息控制
-	callbackControls map[string]bool   // 禁用回调
-	atMembers        map[string]bool   // @用户
+	priority                MsgPriority                 // 消息的优先级
+	onlineOnlyFlag          MsgOnlineOnlyFlag           // 仅发送在线成员标识
+	sendTime                int64                       // 消息发送时间
+	timestamp               int64                       // 消息时间戳，UNIX 时间戳（单位：秒）
+	seq                     int                         // 消息序列号
+	status                  MsgStatus                   // 消息状态
+	customData              interface{}                 // 自定义数据
+	supportMessageExtension SupportMessageExtensionFlag //支持消息扩展
+	sendControls            map[string]bool             // 发送消息控制
+	callbackControls        map[string]bool             // 禁用回调
+	atMembers               map[string]bool             // @用户
 }
 
 func NewMessage() *Message {
@@ -91,6 +97,11 @@ func (m *Message) SetOnlineOnlyFlag(flag MsgOnlineOnlyFlag) {
 // GetOnlineOnlyFlag 获取仅发送在线成员标识
 func (m *Message) GetOnlineOnlyFlag() MsgOnlineOnlyFlag {
 	return m.onlineOnlyFlag
+}
+
+// SetSupportMessageExtensionFlag 设置消息扩展打开
+func (m *Message) SetSupportMessageExtensionFlag(flag SupportMessageExtensionFlag) {
+	m.supportMessageExtension = flag
 }
 
 // SetSendTime 设置发送时间

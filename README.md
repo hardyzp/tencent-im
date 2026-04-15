@@ -2,6 +2,11 @@
 
 点击查看 [官方文档](https://cloud.tencent.com/product/im/developer)
 
+## Acknowledgements
+
+This project is based on the original work:
+- Original Repository: https://github.com/dobyte/tencent-im
+This repository contains significant modifications and improvements.
 ## 如何使用
 
 ```shell script

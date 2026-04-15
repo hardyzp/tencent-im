@@ -43,6 +43,9 @@ const (
 	commandGetGroupSimpleMsg           = "group_msg_get_simple"
 	commandGetOnlineMemberNum          = "get_online_member_num"
 
+	commandModifyGroupMsg    = "modify_group_msg"
+	commandGroupSetKeyValues = "group_set_key_values"
+
 	batchGetGroupsLimit = 50 // 批量获取群组限制
 )
 
@@ -972,7 +975,7 @@ func (a *api) SendMessage(groupId string, message *Message) (ret *SendMessageRet
 	req.SendMsgControl = message.GetSendMsgControl()
 	req.ForbidCallbackControl = message.GetForbidCallbackControl()
 	req.OnlineOnlyFlag = int(message.GetOnlineOnlyFlag())
-
+	req.SupportMessageExtension = message.supportMessageExtension
 	if message.atMembers != nil && len(message.atMembers) > 0 {
 		req.GroupAtInfo = make([]atInfo, 0, len(message.atMembers))
 
@@ -1311,5 +1314,30 @@ func (a *api) GetOnlineMemberNum(groupId string) (num int, err error) {
 
 	num = resp.OnlineMemberNum
 
+	return
+}
+
+// ModifyGroupMsg 修改群历史消息
+// 有消息MsgSeq 和群id
+// 点击查看详细文档:
+// https://www.tencentcloud.com/zh/document/product/1047/47948
+func (a *api) ModifyGroupMsg(groupId string, MsgSeq int, CloudCustomData customDataItem) (err error) {
+	req := &modifyGroupMsgReq{GroupId: groupId, MsgSeq: MsgSeq}
+	if err = a.client.Post(serviceGroup, commandModifyGroupMsg, req, &types.ActionBaseResp{}); err != nil {
+		return
+	}
+	return
+}
+
+// GroupSetKeyValues 设置群消息扩展
+// 有消息MsgSeq 和群id OperateType 操作类型
+// 点击查看详细文档:
+// https://www.tencentcloud.com/zh/document/product/1047/47948
+func (a *api) GroupSetKeyValues(groupId string, MsgSeq int, OperateType int, extensionData []extensionKV) (err error) {
+	req := &groupSetKeyValuesReq{GroupId: groupId, MsgSeq: MsgSeq, OperateType: OperateType, ExtensionList: extensionData}
+	resp := &groupSetKeyValuesResp{}
+	if err = a.client.Post(serviceGroup, commandGroupSetKeyValues, req, resp); err != nil {
+		return
+	}
 	return
 }

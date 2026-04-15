@@ -318,17 +318,18 @@ type (
 
 	// 在群组中发送普通消息（请求）
 	sendMessageReq struct {
-		GroupId               string                 `json:"GroupId"`                         // （必填）向哪个群组发送消息
-		Random                uint32                 `json:"Random"`                          // （必填）无符号32位整数
-		MsgPriority           string                 `json:"MsgPriority,omitempty"`           // （选填）消息的优先级
-		FromUserId            string                 `json:"From_Account,omitempty"`          // （选填）消息来源帐号
-		MsgBody               []*types.MsgBody       `json:"MsgBody"`                         // （必填）消息体
-		OnlineOnlyFlag        int                    `json:"MsgOnlineOnlyFlag,omitempty"`     // （选填）1表示消息仅发送在线成员，默认0表示发送所有成员，AVChatRoom(直播群)不支持该参数
-		SendMsgControl        []string               `json:"SendMsgControl,omitempty"`        // （选填）消息发送权限，NoLastMsg 只对单条消息有效，表示不更新最近联系人会话；NoUnread 不计未读，只对单条消息有效。（如果该消息 MsgOnlineOnlyFlag 设置为1，则不允许使用该字段。）
-		ForbidCallbackControl []string               `json:"ForbidCallbackControl,omitempty"` // （选填）消息回调禁止开关，只对单条消息有效
-		OfflinePushInfo       *types.OfflinePushInfo `json:"OfflinePushInfo,omitempty"`       // （选填）离线推送信息配置
-		CloudCustomData       string                 `json:"CloudCustomData,omitempty"`       // （选填）消息自定义数据（云端保存，会发送到对端，程序卸载重装后还能拉取到）
-		GroupAtInfo           []atInfo               `json:"GroupAtInfo,omitempty"`           // （选填）@某个用户或者所有人
+		GroupId                 string                      `json:"GroupId"`                         // （必填）向哪个群组发送消息
+		Random                  uint32                      `json:"Random"`                          // （必填）无符号32位整数
+		MsgPriority             string                      `json:"MsgPriority,omitempty"`           // （选填）消息的优先级
+		FromUserId              string                      `json:"From_Account,omitempty"`          // （选填）消息来源帐号
+		MsgBody                 []*types.MsgBody            `json:"MsgBody"`                         // （必填）消息体
+		OnlineOnlyFlag          int                         `json:"MsgOnlineOnlyFlag,omitempty"`     // （选填）1表示消息仅发送在线成员，默认0表示发送所有成员，AVChatRoom(直播群)不支持该参数
+		SendMsgControl          []string                    `json:"SendMsgControl,omitempty"`        // （选填）消息发送权限，NoLastMsg 只对单条消息有效，表示不更新最近联系人会话；NoUnread 不计未读，只对单条消息有效。（如果该消息 MsgOnlineOnlyFlag 设置为1，则不允许使用该字段。）
+		ForbidCallbackControl   []string                    `json:"ForbidCallbackControl,omitempty"` // （选填）消息回调禁止开关，只对单条消息有效
+		OfflinePushInfo         *types.OfflinePushInfo      `json:"OfflinePushInfo,omitempty"`       // （选填）离线推送信息配置
+		CloudCustomData         string                      `json:"CloudCustomData,omitempty"`       // （选填）消息自定义数据（云端保存，会发送到对端，程序卸载重装后还能拉取到）
+		SupportMessageExtension SupportMessageExtensionFlag `json:"SupportMessageExtension,omitempty"`
+		GroupAtInfo             []atInfo                    `json:"GroupAtInfo,omitempty"` // （选填）@某个用户或者所有人
 	}
 
 	// 在群组中发送普通消息（响应）
@@ -504,5 +505,37 @@ type (
 	getOnlineMemberNumResp struct {
 		types.ActionBaseResp
 		OnlineMemberNum int `json:"OnlineMemberNum"` // 该群组的在线人数
+	}
+
+	// 修改群历史消息（请求）
+	modifyGroupMsgReq struct {
+		GroupId string `json:"GroupId"` // （必填）操作的群ID
+		MsgSeq  int    `json:"MsgSeq"`  // （必填）操作的群ID
+	}
+
+	//  修改群历史消息（响应）
+	modifyGroupMsgResp struct {
+		types.ActionBaseResp
+	}
+
+	//设置群消息扩展
+	groupSetKeyValuesReq struct {
+		GroupId       string        `json:"GroupId"`
+		MsgSeq        int           `json:"MsgSeq"`      // （必填）操作的群ID
+		OperateType   int           `json:"OperateType"` //1设置群扩展 2删除消息扩展 3清空消息扩展
+		ExtensionList []extensionKV `json:"ExtensionList,omitempty"`
+	}
+	groupSetKeyValuesResp struct {
+		types.ActionBaseResp
+		ExtensionList []extension `json:"ExtensionList,omitempty"`
+	}
+	extension struct {
+		ErrorCode int         `json:"ErrorCode"`
+		Extension extensionKV `json:"Extension"`
+	}
+	extensionKV struct {
+		Key   string `json:"Key"`
+		Value string `json:"Value"`
+		Seq   int    `json:"Seq"`
 	}
 )
