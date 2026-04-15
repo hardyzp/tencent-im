@@ -255,6 +255,16 @@ type API interface {
 	// 点击查看详细文档:
 	// https://cloud.tencent.com/document/product/269/49180
 	GetOnlineMemberNum(groupId string) (num int, err error)
+	// ModifyGroupMsg 修改群历史消息的CloudCustomData todo: MsgBody
+	// 有消息MsgSeq 和群id
+	// 点击查看详细文档:
+	// https://www.tencentcloud.com/zh/document/product/1047/47948
+	ModifyGroupMsg(groupId string, MsgSeq int, CloudCustomData string) (err error)
+	// GroupSetKeyValues 设置群消息扩展
+	// 有消息MsgSeq 和群id OperateType 操作类型
+	// 点击查看详细文档:
+	// https://www.tencentcloud.com/zh/document/product/1047/47948
+	GroupSetKeyValues(groupId string, MsgSeq int, OperateType int, extensionData []extensionKV) (err error)
 }
 
 type api struct {
@@ -1321,8 +1331,8 @@ func (a *api) GetOnlineMemberNum(groupId string) (num int, err error) {
 // 有消息MsgSeq 和群id
 // 点击查看详细文档:
 // https://www.tencentcloud.com/zh/document/product/1047/47948
-func (a *api) ModifyGroupMsg(groupId string, MsgSeq int, CloudCustomData customDataItem) (err error) {
-	req := &modifyGroupMsgReq{GroupId: groupId, MsgSeq: MsgSeq}
+func (a *api) ModifyGroupMsg(groupId string, MsgSeq int, CloudCustomData string) (err error) {
+	req := &modifyGroupMsgReq{GroupId: groupId, MsgSeq: MsgSeq, CloudCustomData: CloudCustomData}
 	if err = a.client.Post(serviceGroup, commandModifyGroupMsg, req, &types.ActionBaseResp{}); err != nil {
 		return
 	}
