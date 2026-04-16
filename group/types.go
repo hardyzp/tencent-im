@@ -509,10 +509,15 @@ type (
 
 	// 修改群历史消息（请求）
 	modifyGroupMsgReq struct {
-		GroupId         string           `json:"GroupId"` // （必填）操作的群ID
-		MsgSeq          int              `json:"MsgSeq"`  // （必填）操作的群ID
-		MsgBody         []*types.MsgBody `json:"MsgBody,omitempty"`
-		CloudCustomData string           `json:"CloudCustomData,omitempty"` // （必填）操作的群ID
+		GroupID         string          `json:"GroupId"`
+		MsgSeq          int             `json:"MsgSeq"`
+		MsgBody         []TIMMsgElement `json:"MsgBody,omitempty"`
+		CloudCustomData string          `json:"CloudCustomData,omitempty"`
+		TopicID         string          `json:"TopicId,omitempty"`
+	}
+	TIMMsgElement struct {
+		MsgType    string      `json:"MsgType"`
+		MsgContent interface{} `json:"MsgContent"`
 	}
 
 	//  修改群历史消息（响应）

@@ -259,7 +259,7 @@ type API interface {
 	// 有消息MsgSeq 和群id
 	// 点击查看详细文档:
 	// https://www.tencentcloud.com/zh/document/product/1047/47948
-	ModifyGroupMsg(groupId string, MsgSeq int, MsgBodys []*types.MsgBody, CloudCustomData string) (err error)
+	ModifyGroupMsg(groupId string, MsgSeq int, MsgBodys []TIMMsgElement, CloudCustomData string) (err error)
 	// GroupSetKeyValues 设置群消息扩展
 	// 有消息MsgSeq 和群id OperateType 操作类型
 	// 点击查看详细文档:
@@ -1331,8 +1331,8 @@ func (a *api) GetOnlineMemberNum(groupId string) (num int, err error) {
 // 有消息MsgSeq 和群id
 // 点击查看详细文档:
 // https://www.tencentcloud.com/zh/document/product/1047/47948
-func (a *api) ModifyGroupMsg(groupId string, MsgSeq int, MsgBodys []*types.MsgBody, CloudCustomData string) (err error) {
-	req := &modifyGroupMsgReq{GroupId: groupId, MsgSeq: MsgSeq}
+func (a *api) ModifyGroupMsg(groupId string, MsgSeq int, MsgBodys []TIMMsgElement, CloudCustomData string) (err error) {
+	req := &modifyGroupMsgReq{GroupID: groupId, MsgSeq: MsgSeq}
 	if len(MsgBodys) > 0 {
 		req.MsgBody = MsgBodys
 	}
