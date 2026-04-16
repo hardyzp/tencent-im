@@ -18,6 +18,8 @@ import (
 
 const (
 	serviceGroup                       = "group_open_http_svc"
+	serviceOpenIM                      = "openim"
+	serviceOpenIMExt                   = "openim_msg_ext_http_svc"
 	commandFetchGroupIds               = "get_appid_group_list"
 	commandCreateGroup                 = "create_group"
 	commandDestroyGroup                = "destroy_group"
@@ -1340,7 +1342,7 @@ func (a *api) ModifyGroupMsg(groupId string, MsgSeq int, MsgBodys []TIMMsgElemen
 		req.CloudCustomData = CloudCustomData
 	}
 	resp := &modifyGroupMsgResp{}
-	if err = a.client.Post(serviceGroup, commandModifyGroupMsg, req, resp); err != nil {
+	if err = a.client.Post(serviceOpenIM, commandModifyGroupMsg, req, resp); err != nil {
 		return
 	}
 	return
@@ -1353,7 +1355,7 @@ func (a *api) ModifyGroupMsg(groupId string, MsgSeq int, MsgBodys []TIMMsgElemen
 func (a *api) GroupSetKeyValues(groupId string, MsgSeq int, OperateType int, extensionData []ExtensionKV) (err error) {
 	req := &groupSetKeyValuesReq{GroupId: groupId, MsgSeq: MsgSeq, OperateType: OperateType, ExtensionList: extensionData}
 	resp := &groupSetKeyValuesResp{}
-	if err = a.client.Post(serviceGroup, commandGroupSetKeyValues, req, resp); err != nil {
+	if err = a.client.Post(serviceOpenIMExt, commandGroupSetKeyValues, req, resp); err != nil {
 		return
 	}
 	return
