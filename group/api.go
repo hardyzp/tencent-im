@@ -1339,7 +1339,7 @@ func (a *api) ModifyGroupMsg(groupId string, MsgSeq int, MsgBodys []TIMMsgElemen
 	if CloudCustomData != "" {
 		req.CloudCustomData = CloudCustomData
 	}
-	var resp *modifyGroupMsgResp
+	resp := &modifyGroupMsgResp{}
 	if err = a.client.Post(serviceGroup, commandModifyGroupMsg, req, resp); err != nil {
 		return
 	}
